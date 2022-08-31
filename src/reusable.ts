@@ -22,6 +22,7 @@ export class Store<HookValue = any> {
 
   subscribe(callback: StoreValueChangeCallback<HookValue>) {
     this.subscribers = [...this.subscribers, callback];
+    if (this.cachedValue != null) callback(this.getCachedValue())
     return () => {
       this.subscribers = this.subscribers.filter(sub => sub !== callback)
     }
